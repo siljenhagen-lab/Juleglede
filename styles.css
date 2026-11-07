@@ -1,0 +1,159 @@
+:root {
+  --red: #a3202b;
+  --red-dark: #7d1620;
+  --green: #1f6b45;
+  --bg: #f7f3ee;
+  --card: #ffffff;
+  --text: #2b2320;
+  --muted: #7a6f69;
+  --border: #e4dcd4;
+  --radius: 12px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1b1716;
+    --card: #262120;
+    --text: #f1ebe6;
+    --muted: #a99d96;
+    --border: #3a3330;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.4;
+}
+.app-header {
+  background: var(--red);
+  color: #fff;
+  padding: 16px 16px 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.app-header h1 { margin: 0 0 12px; font-size: 1.4rem; }
+.tabs { display: flex; gap: 4px; overflow-x: auto; }
+.tab {
+  border: 0;
+  background: transparent;
+  color: rgba(255,255,255,.8);
+  font: inherit;
+  padding: 10px 14px;
+  border-radius: 10px 10px 0 0;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.tab.active { background: var(--bg); color: var(--text); font-weight: 600; }
+
+main { max-width: 720px; margin: 0 auto; padding: 16px; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px;
+}
+.add-form {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 10px;
+  align-items: end;
+}
+.field { display: flex; flex-direction: column; gap: 4px; font-size: .85rem; color: var(--muted); }
+.field-name, .field-store, .add-form .btn { grid-column: 1 / -1; }
+.field-cat { grid-column: span 1; }
+@media (min-width: 600px) {
+  .add-form { grid-template-columns: 2fr 1fr 1.4fr 1.4fr; }
+  .field-name, .field-store { grid-column: auto; }
+  .add-form .btn { grid-column: 1 / -1; }
+}
+input, select {
+  font: inherit;
+  font-size: 1rem;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 9px 10px;
+  width: 100%;
+  min-width: 0;
+}
+input:focus, select:focus { outline: 2px solid var(--red); outline-offset: 1px; }
+
+.btn {
+  font: inherit;
+  border-radius: 8px;
+  padding: 10px 14px;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+.btn.primary { background: var(--green); color: #fff; font-weight: 600; }
+.btn.primary:hover { filter: brightness(1.1); }
+.btn.ghost { background: transparent; border-color: var(--border); color: var(--muted); }
+.btn.ghost:disabled { opacity: .4; cursor: default; }
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 16px 0 8px;
+}
+.summary { color: var(--muted); font-size: .9rem; margin-right: auto; }
+.switch { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font-weight: 500; }
+.switch input { width: 18px; height: 18px; accent-color: var(--red); }
+
+.store-group { margin-top: 18px; }
+.store-group > h2 {
+  font-size: 1.1rem;
+  margin: 0 0 8px;
+  color: var(--red);
+  border-bottom: 2px solid var(--red);
+  padding-bottom: 4px;
+}
+.cat-group { margin-bottom: 12px; padding: 8px 14px; }
+.cat-group h3 {
+  font-size: .8rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--muted);
+  margin: 6px 0;
+}
+.items { list-style: none; margin: 0; padding: 0; }
+.item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  border-top: 1px solid var(--border);
+}
+.item:first-child { border-top: 0; }
+.item input[type=checkbox] { width: 22px; height: 22px; flex: none; accent-color: var(--green); }
+.item .name { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.item .qty { color: var(--muted); font-size: .9rem; }
+.item .store-tag {
+  font-size: .75rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 2px 8px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.item.done .name, .item.done .qty { text-decoration: line-through; opacity: .5; }
+.item .del {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+.item .del:hover { color: var(--red); background: var(--bg); }
+.empty { text-align: center; color: var(--muted); margin-top: 32px; }

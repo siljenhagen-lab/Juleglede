@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="no">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#a3202b">
+  <title>Juleglede</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="app-header">
+    <h1>🎄 Juleglede</h1>
+    <nav class="tabs" role="tablist" aria-label="Faner">
+      <button class="tab active" role="tab" aria-selected="true" data-tab="handel">🛒 Julehandelen</button>
+      <!-- Flere faner kommer her -->
+    </nav>
+  </header>
+
+  <main>
+    <section id="tab-handel" class="tab-panel active" role="tabpanel">
+      <form id="add-form" class="card add-form" autocomplete="off">
+        <label class="field field-name">
+          <span>Vare</span>
+          <input id="item-name" type="text" placeholder="F.eks. ribbe, kålrot, brunost …" required>
+        </label>
+        <label class="field field-qty">
+          <span>Antall</span>
+          <input id="item-qty" type="text" placeholder="2 stk">
+        </label>
+        <label class="field field-cat">
+          <span>Kategori</span>
+          <select id="item-cat"></select>
+        </label>
+        <label class="field field-store">
+          <span>Butikk (valgfritt)</span>
+          <input id="item-store" type="text" list="store-list" placeholder="F.eks. Rema, Meny …">
+          <datalist id="store-list"></datalist>
+        </label>
+        <button type="submit" class="btn primary">Legg til</button>
+      </form>
+
+      <div class="toolbar">
+        <label class="switch">
+          <input id="split-store" type="checkbox">
+          <span>Del på butikk</span>
+        </label>
+        <span id="summary" class="summary"></span>
+        <button id="clear-done" class="btn ghost" type="button">Fjern avkryssede</button>
+      </div>
+
+      <div id="list"></div>
+      <p id="empty" class="empty">Handlelista er tom. Legg til noe godt til jul! 🎅</p>
+    </section>
+  </main>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
