@@ -4,7 +4,7 @@ En liten nettapp for julen, med flere faner.
 
 ## 🛒 Julehandelen
 - Legg til varer med antall og butikk (butikk er valgfritt).
-- Varene sorteres i kategoriene: frukt og grønt, pålegg, fisk, kjøtt, melkeprodukter og tørrvarer.
+- Varene sorteres i kategoriene: frukt og grønt, pålegg, fisk, kjøtt, melkeprodukter, tørrvarer og gaver.
   Kategorien foreslås automatisk ut fra varenavnet, men du kan endre den selv.
 - Slå på **«Del på butikk»** for å se listen gruppert per butikk (og kategori inni hver butikk).
 - Kryss av det du har handlet, og fjern de avkryssede med ett trykk.
@@ -19,6 +19,14 @@ En liten nettapp for julen, med flere faner.
 - Merket viser **🛒 På lista** eller **✓ Handlet**, avhengig av hva som er krysset av i Julehandelen.
   På handlelista står det hva varen skal brukes til (f.eks. «til Pepperkaker»).
 - Kryss av produktet når det er ferdig laget. Trykk på navnet for å slå sammen eller åpne det.
+
+## 🎁 Gaver
+- Legg inn personene du skal handle til, og gaveideer under hver person.
+- Hver gave kan ha en **lenke** til produktet (f.eks. `elkjop.no/...`, https:// legges på automatisk) og en butikk.
+- **«+ Handleliste»** legger gaven i kategorien 🎁 Gaver i Julehandelen, med butikk, lenke og hvem den er til.
+- Kryss av **Kjøpt** og **Pakket**. «Kjøpt» følger handlelista: krysser du av gaven der, blir den kjøpt her også,
+  og den forblir kjøpt selv om du fjerner avkryssede varer fra handlelista.
+- Øverst ser du hvor mange gaver som er kjøpt og pakket totalt.
 
 ## Kjøre appen
 Det trengs ingen bygging: åpne `index.html` i en nettleser, eller publiser repoet med GitHub Pages.

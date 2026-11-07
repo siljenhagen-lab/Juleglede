@@ -25,6 +25,7 @@
     { id: 'kjott', name: 'Kjøtt', icon: '🥩' },
     { id: 'melk', name: 'Melkeprodukter', icon: '🥛' },
     { id: 'torr', name: 'Tørrvarer', icon: '🌾' },
+    { id: 'gaver', name: 'Gaver', icon: '🎁' },
   ];
 
   // Enkle stikkord for å foreslå kategori mens man skriver.
@@ -203,6 +204,13 @@
     const text = el('span', 'text');
     text.appendChild(el('span', 'name', item.name));
     if (item.note) text.appendChild(el('span', 'note', item.note));
+    if (item.link) {
+      const a = el('a', 'link', '🔗 Se produkt');
+      a.href = item.link;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      text.appendChild(a);
+    }
     li.appendChild(text);
     if (item.qty) li.appendChild(el('span', 'qty', item.qty));
     if (showStore) {
@@ -277,8 +285,8 @@
     CATEGORIES,
     guessCategory,
     handel: {
-      add({ name, qty = '', cat = 'torr', store = '', note = '' }) {
-        const item = { id: uid(), name, qty, cat, store, note, done: false };
+      add({ name, qty = '', cat = 'torr', store = '', note = '', link = '' }) {
+        const item = { id: uid(), name, qty, cat, store, note, link, done: false };
         state.items.push(item);
         save();
         render();
@@ -291,6 +299,13 @@
       },
       get(id) {
         return state.items.find((i) => i.id === id) || null;
+      },
+      update(id, changes) {
+        const item = state.items.find((i) => i.id === id);
+        if (!item) return;
+        Object.assign(item, changes);
+        save();
+        render();
       },
     },
   };

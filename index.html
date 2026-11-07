@@ -13,6 +13,7 @@
     <nav class="tabs" role="tablist" aria-label="Faner">
       <button class="tab active" role="tab" aria-selected="true" data-tab="handel">🛒 Julehandelen</button>
       <button class="tab" role="tab" aria-selected="false" data-tab="produksjon">👩‍🍳 Produksjon</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="gaver">🎁 Gaver</button>
       <!-- Flere faner kommer her -->
     </nav>
   </header>
@@ -64,9 +65,23 @@
       <div id="prod-list"></div>
       <p id="prod-empty" class="empty">Ingenting å lage ennå. Hva står på julelista? 🍪</p>
     </section>
+
+    <section id="tab-gaver" class="tab-panel" role="tabpanel">
+      <form id="person-form" class="card prod-form" autocomplete="off">
+        <label class="field">
+          <span>Hvem skal du handle til?</span>
+          <input id="person-name" type="text" placeholder="F.eks. mamma, Ola, svigerfar …" required>
+        </label>
+        <button type="submit" class="btn primary">Legg til</button>
+      </form>
+      <p id="gift-summary" class="summary gift-summary"></p>
+      <div id="person-list"></div>
+      <p id="person-empty" class="empty">Ingen på gavelista ennå. Hvem skal få noe under treet? 🎁</p>
+    </section>
   </main>
 
   <script src="js/app.js"></script>
   <script src="js/produksjon.js"></script>
+  <script src="js/gaver.js"></script>
 </body>
 </html>

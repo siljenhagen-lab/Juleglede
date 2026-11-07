@@ -41,7 +41,7 @@ body {
   background: transparent;
   color: rgba(255,255,255,.8);
   font: inherit;
-  padding: 10px 14px;
+  padding: 10px 12px;
   border-radius: 10px 10px 0 0;
   cursor: pointer;
   white-space: nowrap;
@@ -238,3 +238,53 @@ input:focus, select:focus { outline: 2px solid var(--red); outline-offset: 1px; 
   .ing-form .switch { grid-column: 1 / 4; }
   .ing-form .btn { grid-column: 4; grid-row: 1; }
 }
+
+/* ---------- Gaver ---------- */
+.link { color: var(--green); font-size: .85rem; text-decoration: none; overflow-wrap: anywhere; }
+.link:hover { text-decoration: underline; }
+@media (prefers-color-scheme: dark) { .link { color: #6fcf97; } }
+.gift-summary { margin: 0 0 10px; }
+.person-icon { font-size: 1.3rem; flex: none; }
+.gift { padding: 10px 0; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 6px; }
+.gift:first-child { border-top: 0; }
+.gift-top { display: flex; align-items: center; gap: 8px; }
+.gift-top .name { flex: 1; min-width: 0; font-weight: 500; overflow-wrap: anywhere; }
+.gift-top .store-tag {
+  font-size: .75rem; background: var(--bg); border: 1px solid var(--border);
+  border-radius: 999px; padding: 2px 8px; color: var(--muted); white-space: nowrap;
+}
+.gift .del {
+  border: 0; background: transparent; color: var(--muted);
+  font-size: 1.2rem; cursor: pointer; padding: 4px 8px; border-radius: 6px;
+}
+.gift .del:hover { color: var(--red); background: var(--bg); }
+.gift.packed .gift-top .name { text-decoration: line-through; opacity: .55; }
+.gift-link { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.text-btn { border: 0; background: none; padding: 0; font: inherit; font-size: .8rem; color: var(--muted); cursor: pointer; text-decoration: underline; }
+.chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.chip {
+  display: inline-flex; align-items: center;
+  font-size: .8rem; border: 1px solid var(--border); border-radius: 999px;
+  padding: 5px 11px; cursor: pointer; color: var(--muted); white-space: nowrap; user-select: none;
+}
+.chip input { position: absolute; opacity: 0; pointer-events: none; }
+.chip:focus-within { outline: 2px solid var(--red); outline-offset: 1px; }
+.chip.on { background: var(--green); border-color: var(--green); color: #fff; }
+.chip.shop.on { background: var(--red); border-color: var(--red); }
+
+.gift-form {
+  display: grid; grid-template-columns: 1fr; gap: 8px;
+  margin-top: 8px; padding-top: 10px; border-top: 1px dashed var(--border);
+}
+.gift-form .switch { font-size: .9rem; font-weight: 400; }
+@media (min-width: 600px) {
+  .gift-form { grid-template-columns: 1fr 1fr; }
+  .gift-form input[name=name] { grid-column: 1 / -1; }
+}
+
+@media (max-width: 480px) {
+  .app-header { padding-left: 10px; padding-right: 10px; }
+  .tabs { gap: 0; }
+  .tab { padding: 9px 8px; font-size: .9rem; }
+}
+.prod-body > .gift-form:first-child, .prod-body > .ing-form:first-child { border-top: 0; margin-top: 0; }
