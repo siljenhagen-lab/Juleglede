@@ -284,7 +284,45 @@ input:focus, select:focus { outline: 2px solid var(--red); outline-offset: 1px; 
 
 @media (max-width: 480px) {
   .app-header { padding-left: 10px; padding-right: 10px; }
-  .tabs { gap: 0; }
-  .tab { padding: 9px 8px; font-size: .9rem; }
+  .tabs { gap: 2px; overflow: visible; }
+  .tab {
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 6px 2px 8px;
+    font-size: .74rem;
+    text-align: center;
+    white-space: normal;
+  }
+  .tab-icon { display: block; font-size: 1.2rem; line-height: 1.3; }
 }
 .prod-body > .gift-form:first-child, .prod-body > .ing-form:first-child { border-top: 0; margin-top: 0; }
+
+/* ---------- Takkeliste ---------- */
+.takk-form { display: grid; grid-template-columns: 1fr; gap: 10px; align-items: end; }
+@media (min-width: 600px) {
+  .takk-form { grid-template-columns: 1fr 1.4fr 1fr; }
+  .takk-form .btn { grid-column: 1 / -1; }
+}
+.giver { margin-bottom: 12px; padding: 10px 14px; }
+.giver-head { display: flex; align-items: center; gap: 10px; padding: 4px 0 6px; }
+.giver-head input { width: 22px; height: 22px; flex: none; accent-color: var(--green); }
+.giver-head .giver-name { font-weight: 600; font-size: 1.05rem; flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.giver-head .prod-meta { color: var(--muted); font-size: .85rem; white-space: nowrap; }
+.giver.done .giver-name { opacity: .55; }
+.giver .items { border-top: 1px solid var(--border); }
+.thank {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 0 8px 32px; border-top: 1px solid var(--border);
+}
+.giver .items .thank:first-child { border-top: 0; }
+.thank input[type=checkbox] { width: 20px; height: 20px; flex: none; accent-color: var(--green); }
+.thank .text { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.thank .name { overflow-wrap: anywhere; }
+.thank .note { color: var(--muted); font-size: .8rem; font-style: italic; }
+.thank.done .name { text-decoration: line-through; opacity: .55; }
+.thank-tag { font-size: .75rem; color: #fff; background: var(--green); border-radius: 999px; padding: 2px 8px; white-space: nowrap; }
+.thank .del {
+  border: 0; background: transparent; color: var(--muted);
+  font-size: 1.2rem; cursor: pointer; padding: 4px 8px; border-radius: 6px;
+}
+.thank .del:hover { color: var(--red); background: var(--bg); }

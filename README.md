@@ -28,6 +28,12 @@ En liten nettapp for julen, med flere faner.
   og den forblir kjøpt selv om du fjerner avkryssede varer fra handlelista.
 - Øverst ser du hvor mange gaver som er kjøpt og pakket totalt.
 
+## 💌 Takkeliste
+- Noter hvem du fikk hva fra på julaften: **Fra hvem**, **Hva** og eventuelt **Til hvem** (fint med flere i familien).
+- «Fra» og «Til» huskes etter at du har lagt til en gave, så det går raskt å registrere flere fra samme person.
+- Gavene grupperes per giver. Kryss av hver gave når du har takket, eller bruk avkrysningen ved giveren for å takke for alt.
+- Givere du ikke er ferdig med, vises øverst. «Skjul ferdig takket» skjuler dem du har takket.
+
 ## Kjøre appen
 Det trengs ingen bygging: åpne `index.html` i en nettleser, eller publiser repoet med GitHub Pages.
 

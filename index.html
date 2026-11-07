@@ -11,9 +11,10 @@
   <header class="app-header">
     <h1>🎄 Juleglede</h1>
     <nav class="tabs" role="tablist" aria-label="Faner">
-      <button class="tab active" role="tab" aria-selected="true" data-tab="handel">🛒 Julehandelen</button>
-      <button class="tab" role="tab" aria-selected="false" data-tab="produksjon">👩‍🍳 Produksjon</button>
-      <button class="tab" role="tab" aria-selected="false" data-tab="gaver">🎁 Gaver</button>
+      <button class="tab active" role="tab" aria-selected="true" data-tab="handel"><span class="tab-icon">🛒</span> Julehandelen</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="produksjon"><span class="tab-icon">👩‍🍳</span> Produksjon</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="gaver"><span class="tab-icon">🎁</span> Gaver</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="takk"><span class="tab-icon">💌</span> Takkeliste</button>
       <!-- Flere faner kommer her -->
     </nav>
   </header>
@@ -78,10 +79,42 @@
       <div id="person-list"></div>
       <p id="person-empty" class="empty">Ingen på gavelista ennå. Hvem skal få noe under treet? 🎁</p>
     </section>
+
+    <section id="tab-takk" class="tab-panel" role="tabpanel">
+      <form id="takk-form" class="card takk-form" autocomplete="off">
+        <label class="field">
+          <span>Fra hvem?</span>
+          <input id="takk-from" type="text" list="takk-from-list" placeholder="F.eks. tante Kari" required>
+          <datalist id="takk-from-list"></datalist>
+        </label>
+        <label class="field">
+          <span>Hva fikk du?</span>
+          <input id="takk-what" type="text" placeholder="F.eks. rødt skjerf" required>
+        </label>
+        <label class="field">
+          <span>Til hvem (valgfritt)</span>
+          <input id="takk-to" type="text" list="takk-to-list" placeholder="F.eks. Emma">
+          <datalist id="takk-to-list"></datalist>
+        </label>
+        <button type="submit" class="btn primary">Legg til</button>
+      </form>
+
+      <div class="toolbar">
+        <label class="switch">
+          <input id="takk-hide" type="checkbox">
+          <span>Skjul ferdig takket</span>
+        </label>
+        <span id="takk-summary" class="summary"></span>
+      </div>
+
+      <div id="takk-list"></div>
+      <p id="takk-empty" class="empty">Ingen gaver registrert ennå. God jul! 🎄</p>
+    </section>
   </main>
 
   <script src="js/app.js"></script>
   <script src="js/produksjon.js"></script>
   <script src="js/gaver.js"></script>
+  <script src="js/takk.js"></script>
 </body>
 </html>
