@@ -352,4 +352,26 @@
 
   syncFromList();
   render();
+
+  // Brukes av fanen Ønsker for å legge et ønske fra noens ønskeliste inn her.
+  const sameName = (a, b) => a.trim().toLowerCase() === b.trim().toLowerCase();
+  window.Juleglede.normalizeLink = normalizeLink;
+  window.Juleglede.gaver = {
+    hasWish(wishId) {
+      return people.some((p) => p.gifts.some((g) => g.wishId === wishId));
+    },
+    addFromWish({ person: personName, name, link = '', wishId }) {
+      if (this.hasWish(wishId)) return;
+      let person = people.find((p) => sameName(p.name, personName));
+      if (!person) {
+        person = { id: uid(), name: personName.trim(), open: true, gifts: [] };
+        people.push(person);
+      }
+      person.gifts.push({
+        id: uid(), name, link: normalizeLink(link), store: '', bought: false, packed: false, shopId: null, wishId,
+      });
+      save();
+      render();
+    },
+  };
 })();

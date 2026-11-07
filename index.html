@@ -15,7 +15,7 @@
       <button class="tab" role="tab" aria-selected="false" data-tab="produksjon"><span class="tab-icon">👩‍🍳</span> Produksjon</button>
       <button class="tab" role="tab" aria-selected="false" data-tab="gaver"><span class="tab-icon">🎁</span> Gaver</button>
       <button class="tab" role="tab" aria-selected="false" data-tab="takk"><span class="tab-icon">💌</span> Takkeliste</button>
-      <!-- Flere faner kommer her -->
+      <button class="tab" role="tab" aria-selected="false" data-tab="onsker"><span class="tab-icon">⭐</span> Ønsker</button>
     </nav>
   </header>
 
@@ -110,11 +110,51 @@
       <div id="takk-list"></div>
       <p id="takk-empty" class="empty">Ingen gaver registrert ennå. God jul! 🎄</p>
     </section>
+
+    <section id="tab-onsker" class="tab-panel" role="tabpanel">
+      <!-- Oppsett: vises når Supabase ikke er konfigurert -->
+      <form id="sb-form" class="card setup" autocomplete="off" hidden>
+        <h2>Koble til Supabase</h2>
+        <p class="hint">Ønskelistene deles mellom alle som bruker samme Supabase-prosjekt.
+          Fyll inn adressen og den offentlige nøkkelen (anon/publishable) fra
+          <em>Project Settings → API</em>. Se <code>supabase/README.md</code>.</p>
+        <label class="field"><span>Project URL</span>
+          <input id="sb-url" type="url" placeholder="https://xxxx.supabase.co" required></label>
+        <label class="field"><span>Offentlig nøkkel (anon / publishable)</span>
+          <input id="sb-key" type="text" placeholder="eyJ… eller sb_publishable_…" required></label>
+        <button type="submit" class="btn primary">Koble til</button>
+      </form>
+
+      <!-- Hvem er du: vises når navnet ikke er valgt på denne enheten -->
+      <form id="me-form" class="card setup" autocomplete="off" hidden>
+        <h2>Hvem er du?</h2>
+        <p class="hint">Navnet brukes som navn på ønskelista di. Velg et navn som allerede finnes, eller skriv et nytt.</p>
+        <label class="field"><span>Ditt navn</span>
+          <input id="me-name" type="text" list="owner-list" placeholder="F.eks. Lillebror" required>
+          <datalist id="owner-list"></datalist></label>
+        <button type="submit" class="btn primary">Fortsett</button>
+      </form>
+
+      <div id="wish-main" hidden>
+        <div class="toolbar wish-toolbar">
+          <span class="summary">Du er <strong id="me-label"></strong>
+            <button id="me-change" type="button" class="text-btn">bytt</button></span>
+          <span id="wish-status" class="sync-status"></span>
+          <button id="wish-refresh" type="button" class="btn ghost">↻ Oppdater</button>
+        </div>
+        <div id="wish-lists"></div>
+        <p class="hint small-print">Ønskelistene deles med alle. Det du legger i Gaver, lagres bare på denne enheten –
+          den som ønsker seg noe, ser aldri om det er kjøpt.
+          <button id="sb-reset" type="button" class="text-btn">Koble fra Supabase</button></p>
+      </div>
+    </section>
   </main>
 
   <script src="js/app.js"></script>
   <script src="js/produksjon.js"></script>
   <script src="js/gaver.js"></script>
   <script src="js/takk.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/onsker.js"></script>
 </body>
 </html>

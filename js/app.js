@@ -11,6 +11,7 @@
       document.querySelectorAll('.tab-panel').forEach((p) => {
         p.classList.toggle('active', p.id === 'tab-' + tab.dataset.tab);
       });
+      document.dispatchEvent(new CustomEvent('tab:shown', { detail: tab.dataset.tab }));
     });
   });
 
