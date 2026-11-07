@@ -12,6 +12,7 @@
     <h1>🎄 Juleglede</h1>
     <nav class="tabs" role="tablist" aria-label="Faner">
       <button class="tab active" role="tab" aria-selected="true" data-tab="handel">🛒 Julehandelen</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="produksjon">👩‍🍳 Produksjon</button>
       <!-- Flere faner kommer her -->
     </nav>
   </header>
@@ -51,8 +52,21 @@
       <div id="list"></div>
       <p id="empty" class="empty">Handlelista er tom. Legg til noe godt til jul! 🎅</p>
     </section>
+
+    <section id="tab-produksjon" class="tab-panel" role="tabpanel">
+      <form id="prod-form" class="card prod-form" autocomplete="off">
+        <label class="field">
+          <span>Hva skal lages?</span>
+          <input id="prod-name" type="text" placeholder="F.eks. pepperkaker, ribbemiddag, julekort …" required>
+        </label>
+        <button type="submit" class="btn primary">Legg til</button>
+      </form>
+      <div id="prod-list"></div>
+      <p id="prod-empty" class="empty">Ingenting å lage ennå. Hva står på julelista? 🍪</p>
+    </section>
   </main>
 
   <script src="js/app.js"></script>
+  <script src="js/produksjon.js"></script>
 </body>
 </html>

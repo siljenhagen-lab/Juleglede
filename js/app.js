@@ -86,6 +86,7 @@
 
   function save() {
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) { /* ignorer */ }
+    document.dispatchEvent(new CustomEvent('handel:changed'));
   }
 
   function guessCategory(text) {
@@ -199,7 +200,10 @@
     cb.checked = item.done;
     cb.setAttribute('aria-label', `Kryss av ${item.name}`);
     li.appendChild(cb);
-    li.appendChild(el('span', 'name', item.name));
+    const text = el('span', 'text');
+    text.appendChild(el('span', 'name', item.name));
+    if (item.note) text.appendChild(el('span', 'note', item.note));
+    li.appendChild(text);
     if (item.qty) li.appendChild(el('span', 'qty', item.qty));
     if (showStore) {
       const tag = el('button', 'store-tag', item.store || '+ butikk');
@@ -267,4 +271,27 @@
   }
 
   render();
+
+  // Felles API som andre faner (f.eks. Produksjon) bruker.
+  window.Juleglede = {
+    CATEGORIES,
+    guessCategory,
+    handel: {
+      add({ name, qty = '', cat = 'torr', store = '', note = '' }) {
+        const item = { id: uid(), name, qty, cat, store, note, done: false };
+        state.items.push(item);
+        save();
+        render();
+        return item.id;
+      },
+      remove(id) {
+        state.items = state.items.filter((i) => i.id !== id);
+        save();
+        render();
+      },
+      get(id) {
+        return state.items.find((i) => i.id === id) || null;
+      },
+    },
+  };
 })();

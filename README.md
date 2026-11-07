@@ -1,6 +1,6 @@
 # 🎄 Juleglede
 
-En liten nettapp for julen, med flere faner. Den første fanen er på plass:
+En liten nettapp for julen, med flere faner.
 
 ## 🛒 Julehandelen
 - Legg til varer med antall og butikk (butikk er valgfritt).
@@ -10,6 +10,15 @@ En liten nettapp for julen, med flere faner. Den første fanen er på plass:
 - Kryss av det du har handlet, og fjern de avkryssede med ett trykk.
 - Trykk på butikk-merket på en vare for å endre butikken.
 - Listen lagres i nettleseren (localStorage).
+
+## 👩‍🍳 Produksjon
+- Legg inn det som skal lages, for eksempel pepperkaker, ribbemiddag eller julekort.
+- Under hvert produkt legger du inn det som trengs for å lage det (antall og kategori).
+- Marker **«+ Handleliste»** på en ting for å legge den på handlelista. Trykk igjen for å ta den av.
+  Med **«Legg alt på handlelista»** legger du alt på én gang, og med **«Rett på handlelista»** havner nye ting der med en gang.
+- Merket viser **🛒 På lista** eller **✓ Handlet**, avhengig av hva som er krysset av i Julehandelen.
+  På handlelista står det hva varen skal brukes til (f.eks. «til Pepperkaker»).
+- Kryss av produktet når det er ferdig laget. Trykk på navnet for å slå sammen eller åpne det.
 
 ## Kjøre appen
 Det trengs ingen bygging: åpne `index.html` i en nettleser, eller publiser repoet med GitHub Pages.
