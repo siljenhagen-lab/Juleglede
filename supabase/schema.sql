@@ -31,3 +31,6 @@ create policy "Alle kan slette ønsker" on public.wishes
   for delete to anon, authenticated using (true);
 
 grant select, insert, delete on public.wishes to anon, authenticated;
+
+-- Be Supabase sitt API om å lese tabellene på nytt, så tabellen blir synlig med en gang.
+notify pgrst, 'reload schema';

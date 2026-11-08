@@ -65,6 +65,11 @@
     if (!res.ok) {
       let msg = `${res.status}`;
       try { const j = await res.json(); msg = j.message || j.hint || msg; } catch (e) { /* ignorer */ }
+      if (/could not find the table|relation .* does not exist/i.test(msg)) {
+        msg = 'tabellen «wishes» finnes ikke i Supabase ennå – kjør supabase/schema.sql i SQL Editor';
+      } else if (res.status === 401 || /invalid api key|no api key/i.test(msg)) {
+        msg = 'nøkkelen ble ikke godtatt – sjekk at det er den offentlige anon/publishable-nøkkelen';
+      }
       throw new Error(msg);
     }
     return res.status === 204 ? null : res.json();
