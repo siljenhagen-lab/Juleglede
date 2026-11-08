@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+<!-- Kilde for app-ikonet. Tegnet med skriften Inter Display Black; PNG-filene i samme mappe er ferdig tegnet og er det appen bruker. -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1b3766"/>
+      <stop offset="1" stop-color="#0b1730"/>
+    </linearGradient>
+    <linearGradient id="red" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ee3a3a"/>
+      <stop offset="1" stop-color="#b9161f"/>
+    </linearGradient>
+    <!-- Bølgete snøkant: snøen ligger over linja -->
+    <clipPath id="snowGod">
+      <path d="M0 60 H512 V128 C480 140 462 120 440 132 C412 146 396 124 368 134 C342 144 324 122 296 132 C270 142 252 120 226 133 C198 146 182 122 154 134 C128 144 110 124 84 136 C60 146 40 128 0 138 Z"/>
+    </clipPath>
+    <clipPath id="snowJul">
+      <path d="M0 270 H512 V341 C480 353 462 332 440 344 C412 358 396 336 368 346 C342 356 324 334 296 344 C270 354 252 332 226 345 C198 358 182 334 154 346 C128 356 110 336 84 348 C60 358 40 340 0 350 Z"/>
+    </clipPath>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="6" stdDeviation="5" flood-color="#000" flood-opacity=".45"/>
+    </filter>
+  </defs>
+
+  <rect width="512" height="512" fill="url(#bg)"/>
+
+  <!-- Snøfnugg -->
+  <g fill="#fff">
+    <circle cx="40" cy="40" r="4" opacity=".8"/><circle cx="120" cy="22" r="3" opacity=".6"/>
+    <circle cx="210" cy="48" r="5" opacity=".7"/><circle cx="300" cy="18" r="3" opacity=".6"/>
+    <circle cx="380" cy="44" r="4" opacity=".8"/><circle cx="470" cy="26" r="5" opacity=".7"/>
+    <circle cx="28" cy="190" r="3" opacity=".5"/><circle cx="488" cy="200" r="4" opacity=".6"/>
+    <circle cx="20" cy="300" r="4" opacity=".6"/><circle cx="494" cy="290" r="3" opacity=".5"/>
+    <circle cx="60" cy="480" r="3" opacity=".5"/><circle cx="450" cy="486" r="4" opacity=".6"/>
+  </g>
+
+  <g font-family="'Inter Display', Inter, sans-serif" font-weight="900" font-size="196" text-anchor="middle" letter-spacing="-4">
+    <!-- Røde blokkbokstaver -->
+    <g filter="url(#shadow)">
+      <text x="256" y="254" fill="#7d0d14" dy="7">GOD</text>
+      <text x="256" y="254" fill="url(#red)">GOD</text>
+      <text x="256" y="460" fill="#7d0d14" dy="7">JUL</text>
+      <text x="256" y="460" fill="url(#red)">JUL</text>
+    </g>
+    <!-- Snø oppå bokstavene: samme tekst med tykk, rund hvit kant, klippet til toppen -->
+    <g fill="#fff" stroke="#fff" stroke-width="16" stroke-linejoin="round">
+      <text x="256" y="254" clip-path="url(#snowGod)">GOD</text>
+      <text x="256" y="460" clip-path="url(#snowJul)">JUL</text>
+    </g>
+  </g>
+</svg>
