@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="no">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#a3202b">
+  <title>Juleglede</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="app-header">
+    <h1>🎄 Juleglede</h1>
+    <nav class="tabs" role="tablist" aria-label="Faner">
+      <button class="tab active" role="tab" aria-selected="true" data-tab="handel"><span class="tab-icon">🛒</span> Julehandelen</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="produksjon"><span class="tab-icon">👩‍🍳</span> Produksjon</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="gaver"><span class="tab-icon">🎁</span> Gaver</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="takk"><span class="tab-icon">💌</span> Takkeliste</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="onsker"><span class="tab-icon">⭐</span> Ønsker</button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="tab-handel" class="tab-panel active" role="tabpanel">
+      <form id="add-form" class="card add-form" autocomplete="off">
+        <label class="field field-name">
+          <span>Vare</span>
+          <input id="item-name" type="text" placeholder="F.eks. ribbe, kålrot, brunost …" required>
+        </label>
+        <label class="field field-qty">
+          <span>Antall</span>
+          <input id="item-qty" type="text" placeholder="2 stk">
+        </label>
+        <label class="field field-cat">
+          <span>Kategori</span>
+          <select id="item-cat"></select>
+        </label>
+        <label class="field field-store">
+          <span>Butikk (valgfritt)</span>
+          <input id="item-store" type="text" list="store-list" placeholder="F.eks. Rema, Meny …">
+          <datalist id="store-list"></datalist>
+        </label>
+        <button type="submit" class="btn primary">Legg til</button>
+      </form>
+
+      <div class="toolbar">
+        <label class="switch">
+          <input id="split-store" type="checkbox">
+          <span>Del på butikk</span>
+        </label>
+        <span id="summary" class="summary"></span>
+        <button id="clear-done" class="btn ghost" type="button">Fjern avkryssede</button>
+      </div>
+
+      <div id="list"></div>
+      <p id="empty" class="empty">Handlelista er tom. Legg til noe godt til jul! 🎅</p>
+    </section>
+
+    <section id="tab-produksjon" class="tab-panel" role="tabpanel">
+      <form id="prod-form" class="card prod-form" autocomplete="off">
+        <label class="field">
+          <span>Hva skal lages?</span>
+          <input id="prod-name" type="text" placeholder="F.eks. pepperkaker, ribbemiddag, julekort …" required>
+        </label>
+        <button type="submit" class="btn primary">Legg til</button>
+      </form>
+      <div id="prod-list"></div>
+      <p id="prod-empty" class="empty">Ingenting å lage ennå. Hva står på julelista? 🍪</p>
+    </section>
+
+    <section id="tab-gaver" class="tab-panel" role="tabpanel">
+      <form id="person-form" class="card prod-form" autocomplete="off">
+        <label class="field">
+          <span>Hvem skal du handle til?</span>
+          <input id="person-name" type="text" placeholder="F.eks. mamma, Ola, svigerfar …" required>
+        </label>
+        <button type="submit" class="btn primary">Legg til</button>
+      </form>
+      <p id="gift-summary" class="summary gift-summary"></p>
+      <div id="person-list"></div>
+      <p id="person-empty" class="empty">Ingen på gavelista ennå. Hvem skal få noe under treet? 🎁</p>
+    </section>
+
+    <section id="tab-takk" class="tab-panel" role="tabpanel">
+      <form id="takk-form" class="card takk-form" autocomplete="off">
+        <label class="field">
+          <span>Fra hvem?</span>
+          <input id="takk-from" type="text" list="takk-from-list" placeholder="F.eks. tante Kari" required>
+          <datalist id="takk-from-list"></datalist>
+        </label>
+        <label class="field">
+          <span>Hva fikk du?</span>
+          <input id="takk-what" type="text" placeholder="F.eks. rødt skjerf" required>
+        </label>
+        <label class="field">
+          <span>Til hvem (valgfritt)</span>
+          <input id="takk-to" type="text" list="takk-to-list" placeholder="F.eks. Emma">
+          <datalist id="takk-to-list"></datalist>
+        </label>
+        <button type="submit" class="btn primary">Legg til</button>
+      </form>
+
+      <div class="toolbar">
+        <label class="switch">
+          <input id="takk-hide" type="checkbox">
+          <span>Skjul ferdig takket</span>
+        </label>
+        <span id="takk-summary" class="summary"></span>
+      </div>
+
+      <div id="takk-list"></div>
+      <p id="takk-empty" class="empty">Ingen gaver registrert ennå. God jul! 🎄</p>
+    </section>
+
+    <section id="tab-onsker" class="tab-panel" role="tabpanel">
+      <!-- Oppsett: vises når Supabase ikke er konfigurert -->
+      <form id="sb-form" class="card setup" autocomplete="off" hidden>
+        <h2>Koble til Supabase</h2>
+        <p class="hint">Ønskelistene deles mellom alle som bruker samme Supabase-prosjekt.
+          Fyll inn adressen og den offentlige nøkkelen (anon/publishable) fra
+          <em>Project Settings → API</em>. Se <code>supabase/README.md</code>.</p>
+        <label class="field"><span>Project URL</span>
+          <input id="sb-url" type="url" placeholder="https://xxxx.supabase.co" required></label>
+        <label class="field"><span>Offentlig nøkkel (anon / publishable)</span>
+          <input id="sb-key" type="text" placeholder="eyJ… eller sb_publishable_…" required></label>
+        <button type="submit" class="btn primary">Koble til</button>
+      </form>
+
+      <!-- Hvem er du: vises når navnet ikke er valgt på denne enheten -->
+      <form id="me-form" class="card setup" autocomplete="off" hidden>
+        <h2>Hvem er du?</h2>
+        <p class="hint">Navnet brukes som navn på ønskelista di. Velg et navn som allerede finnes, eller skriv et nytt.</p>
+        <label class="field"><span>Ditt navn</span>
+          <input id="me-name" type="text" list="owner-list" placeholder="F.eks. Lillebror" required>
+          <datalist id="owner-list"></datalist></label>
+        <button type="submit" class="btn primary">Fortsett</button>
+      </form>
+
+      <div id="wish-main" hidden>
+        <div class="toolbar wish-toolbar">
+          <span class="summary">Du er <strong id="me-label"></strong>
+            <button id="me-change" type="button" class="text-btn">bytt</button></span>
+          <span id="wish-status" class="sync-status"></span>
+          <button id="wish-refresh" type="button" class="btn ghost">↻ Oppdater</button>
+        </div>
+        <div id="wish-lists"></div>
+        <p class="hint small-print">Ønskelistene deles med alle. Det du legger i Gaver, lagres bare på denne enheten –
+          den som ønsker seg noe, ser aldri om det er kjøpt.
+          <button id="sb-reset" type="button" class="text-btn">Koble fra Supabase</button></p>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/app.js"></script>
+  <script src="js/produksjon.js"></script>
+  <script src="js/gaver.js"></script>
+  <script src="js/takk.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/onsker.js"></script>
+</body>
+</html>
