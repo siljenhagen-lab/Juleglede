@@ -11,6 +11,8 @@
   const summaryEl = document.querySelector('#gift-summary');
 
   let people = load();
+  // Hvilke personer som har «Ny gave»-skjemaet åpent (bare mens appen er åpen).
+  const formOpen = new Set();
 
   function load() {
     try {
@@ -100,7 +102,9 @@
     e.preventDefault();
     const name = nameInput.value.trim();
     if (!name) return;
-    people.push({ id: uid(), name, open: true, gifts: [] });
+    const person = { id: uid(), name, open: true, gifts: [] };
+    people.push(person);
+    formOpen.add(person.id);
     save();
     render();
     nameInput.value = '';
@@ -172,6 +176,16 @@
 
     if (t.closest('.prod-toggle')) {
       person.open = !person.open;
+    } else if (t.closest('.gift-new')) {
+      formOpen.add(person.id);
+      render();
+      const f = listEl.querySelector(`.person[data-id="${person.id}"] .gift-form input[name=name]`);
+      if (f) f.focus();
+      return;
+    } else if (t.closest('.gift-cancel')) {
+      formOpen.delete(person.id);
+      render();
+      return;
     } else if (t.closest('.person-del')) {
       if (!confirm(`Slette «${person.name}» og alle gaveideene? Gaver som ikke er kjøpt, fjernes også fra handlelista.`)) return;
       person.gifts.forEach((g) => { if (!g.bought) removeFromList(g); });
@@ -279,7 +293,11 @@
 
     const btn = el('button', 'btn primary', 'Legg til gave');
     btn.type = 'submit';
-    f.append(name, link, store, lab, btn);
+    const cancel = el('button', 'btn ghost gift-cancel', 'Lukk');
+    cancel.type = 'button';
+    const buttons = el('div', 'gift-form-buttons');
+    buttons.append(cancel, btn);
+    f.append(name, link, store, lab, buttons);
     return f;
   }
 
@@ -318,7 +336,14 @@
         p.gifts.forEach((g) => ul.appendChild(renderGift(g)));
         body.appendChild(ul);
       }
-      body.appendChild(renderGiftForm());
+      if (formOpen.has(p.id)) {
+        body.appendChild(renderGiftForm());
+      } else {
+        const add = el('button', 'btn ghost gift-new', '+ Ny gave');
+        add.type = 'button';
+        add.setAttribute('aria-label', `Ny gave til ${p.name}`);
+        body.appendChild(add);
+      }
       card.appendChild(body);
     }
     return card;

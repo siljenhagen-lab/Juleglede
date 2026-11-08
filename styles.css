@@ -366,3 +366,10 @@ input:focus, select:focus { outline: 2px solid var(--red); outline-offset: 1px; 
   .wish-form { grid-template-columns: 1fr 1fr; }
   .wish-form input[name=title], .wish-form .btn { grid-column: 1 / -1; }
 }
+
+.btn.gift-new { width: 100%; margin-top: 8px; border-style: dashed; color: var(--green); font-weight: 600; }
+.btn.gift-new:hover { border-color: var(--green); }
+.prod-body > .gift-new:first-child { margin-top: 2px; }
+.gift-form-buttons { display: flex; gap: 8px; }
+.gift-form-buttons .btn.primary { flex: 1; }
+@media (min-width: 600px) { .gift-form-buttons { grid-column: 1 / -1; } }
