@@ -19,7 +19,6 @@
   const meLabel = $('#me-label');
   const statusEl = $('#wish-status');
   const listsEl = $('#wish-lists');
-  const ownerList = $('#owner-list');
 
   const read = (k, fallback) => {
     try { const v = JSON.parse(localStorage.getItem(k)); return v == null ? fallback : v; } catch (e) { return fallback; }
@@ -30,6 +29,8 @@
 
   let wishes = read(CACHE_KEY, []);
   let me = read(ME_KEY, '');
+  // Hvem enheten sist var satt opp som (for å slippe spørsmål om man velger seg selv igjen).
+  let lastMe = me;
   let open = read(OPEN_KEY, {});
   let timer = null;
   let loading = false;
@@ -65,6 +66,11 @@
     if (!res.ok) {
       let msg = `${res.status}`;
       try { const j = await res.json(); msg = j.message || j.hint || msg; } catch (e) { /* ignorer */ }
+      if (/could not find the table|relation .* does not exist/i.test(msg)) {
+        msg = 'tabellen «wishes» finnes ikke i Supabase ennå – kjør supabase/schema.sql i SQL Editor';
+      } else if (res.status === 401 || /invalid api key|no api key/i.test(msg)) {
+        msg = 'nøkkelen ble ikke godtatt – sjekk at det er den offentlige anon/publishable-nøkkelen';
+      }
       throw new Error(msg);
     }
     return res.status === 204 ? null : res.json();
@@ -151,13 +157,30 @@
     if (!name) return;
     // Bruk samme skrivemåte som en eksisterende liste hvis navnet finnes.
     const existing = wishes.find((w) => key(w.owner) === key(name));
+    // Den som velger et navn som allerede har en liste, kan endre den lista.
+    // Spør derfor ekstra, så ingen tar over en annens liste ved et uhell
+    // (f.eks. for å se på den – andres lister vises uansett nederst).
+    if (existing && key(existing.owner) !== key(lastMe) && !confirm(
+      `Det finnes allerede en ønskeliste for «${existing.owner}».\n\n`
+      + `Velg bare dette hvis du ER ${existing.owner}, for eksempel på en ny telefon. `
+      + `Da kan du endre og slette ønskene på lista.\n\n`
+      + `Vil du bare se lista til ${existing.owner}? Trykk Avbryt og skriv ditt eget navn. `
+      + `Andres lister vises under «Andres ønskelister».\n\nEr du ${existing.owner}?`)) {
+      $('#me-name').value = '';
+      $('#me-name').focus();
+      return;
+    }
     me = existing ? existing.owner : name;
+    lastMe = me;
     write(ME_KEY, me);
     show();
   });
 
   $('#me-change').addEventListener('click', () => {
-    $('#me-name').value = me;
+    if (!confirm(`Denne enheten er satt opp som ${me}, og kan bare endre lista til ${me}.\n\n`
+      + `Vil du bytte til en annen person? Gjør bare det hvis du ikke er ${me}. `
+      + 'For å se andres lister trenger du ikke bytte – de vises under «Andres ønskelister».')) return;
+    $('#me-name').value = '';
     me = '';
     write(ME_KEY, '');
     show();
@@ -324,17 +347,6 @@
     }
   }
 
-  function fillOwnerList() {
-    ownerList.innerHTML = '';
-    const seen = new Set();
-    wishes.forEach((w) => {
-      if (seen.has(key(w.owner))) return;
-      seen.add(key(w.owner));
-      const o = el('option');
-      o.value = w.owner;
-      ownerList.appendChild(o);
-    });
-  }
 
   // Viser riktig steg: oppsett → navn → lister.
   function show() {
@@ -345,8 +357,7 @@
     $('#sb-reset').hidden = !!(cfg && cfg.fromFile);
     if (!cfg) return;
     if (!me) {
-      fillOwnerList();
-      refresh().then(fillOwnerList);
+      refresh();
       return;
     }
     meLabel.textContent = me;
