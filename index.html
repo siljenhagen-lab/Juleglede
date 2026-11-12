@@ -135,17 +135,17 @@
       <!-- Hvem er du: vises når navnet ikke er valgt på denne enheten -->
       <form id="me-form" class="card setup" autocomplete="off" hidden>
         <h2>Hvem er du?</h2>
-        <p class="hint">Navnet brukes som navn på ønskelista di. Velg et navn som allerede finnes, eller skriv et nytt.</p>
+        <p class="hint">Skriv <strong>ditt eget</strong> navn. Det blir navnet på ønskelista di, og bare du kan endre den.
+          Andres ønskelister ser du etterpå, under «Andres ønskelister».</p>
         <label class="field"><span>Ditt navn</span>
-          <input id="me-name" type="text" list="owner-list" placeholder="F.eks. Lillebror" required>
-          <datalist id="owner-list"></datalist></label>
+          <input id="me-name" type="text" placeholder="F.eks. Lillebror" required></label>
         <button type="submit" class="btn primary">Fortsett</button>
       </form>
 
       <div id="wish-main" hidden>
         <div class="toolbar wish-toolbar">
           <span class="summary">Du er <strong id="me-label"></strong>
-            <button id="me-change" type="button" class="text-btn">bytt</button></span>
+            <button id="me-change" type="button" class="text-btn">ikke deg?</button></span>
           <span id="wish-status" class="sync-status"></span>
           <button id="wish-refresh" type="button" class="btn ghost">↻ Oppdater</button>
         </div>
